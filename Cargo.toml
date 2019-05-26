@@ -1,0 +1,9 @@
+[package]
+name = "cloud-security"
+version = "0.1.0"
+authors = ["shenphen <shenphen@protonmail.com>"]
+edition = "2018"
+
+[dependencies]
+pairing = "0.14.2"
+rand = "0.4.6"
