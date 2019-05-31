@@ -1,49 +1,24 @@
 extern crate pairing;
 
-mod client;
-mod cloud;
-mod helpers;
-pub mod types;
+mod oblivious_transfer;
+mod proof_of_possession;
+pub mod traits;
+pub mod utils;
 
-use client::Client;
-use cloud::Cloud;
-use helpers::PerformanceTimer;
-use pairing::bls12_381::Fr;
-use rand::Rand;
-use types::{File, IdFile};
+use oblivious_transfer::ObliviousTransfer;
+use proof_of_possession::ProofOfPossession;
+use traits::Protocol;
 
-const NUMBER_OF_BLOCKS: usize = 10;
+#[allow(dead_code)]
+fn pop() {
+    ProofOfPossession::new().set_number_of_blocks(5).run();
+}
 
-fn protocol() {
-    let mut rng = rand::thread_rng();
-
-    let client = Client::new(NUMBER_OF_BLOCKS);
-    let mut cloud = Cloud::new();
-
-    let mut file: File = vec![];
-    let id_file: IdFile = 1;
-
-    for _ in 0..NUMBER_OF_BLOCKS {
-        file.push(Fr::rand(&mut rng));
-    }
-
-    let mut timer = PerformanceTimer::new();
-    timer.start("Protocol execution".to_owned());
-
-    let tagged_file = client.tag_block(file, id_file);
-    cloud.add_file(id_file, tagged_file);
-
-    let (k_f, challange) = client.gen_challange(id_file);
-
-    let p_f = cloud.gen_proof(id_file, challange);
-
-    timer.stop();
-
-    println!("Kf == Pf: {}", k_f == p_f);
-    println!("Kf: {}", k_f);
-    println!("Pf: {}", p_f);
+#[allow(dead_code)]
+fn oblivious_transfer() {
+    ObliviousTransfer::new().set_n(2).run();
 }
 
 fn main() {
-    protocol();
+    oblivious_transfer();
 }

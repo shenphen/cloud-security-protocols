@@ -3,6 +3,7 @@
 ## List of implemented protocols
 
 1. Proof of Possession for Cloud Storage via Lagrangian Interpolation Techniques
+2. 1-out-of-N Oblivious Transfer (https://github.com/adjoint-io/oblivious-transfer#1-out-of-n-ot)
 
 ## Develop
 
