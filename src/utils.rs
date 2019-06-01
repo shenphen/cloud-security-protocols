@@ -1,3 +1,7 @@
+use pairing::bls12_381::{G1Affine, G1Compressed, G1};
+use pairing::EncodedPoint;
+use std::collections::hash_map::DefaultHasher;
+use std::hash::Hasher;
 use std::time::Instant;
 
 pub struct PerformanceTimer {
@@ -35,4 +39,19 @@ impl PerformanceTimer {
             println!("No active timer is run");
         }
     }
+}
+
+pub fn hash_points(p1: G1, p2: G1) -> u64 {
+    let p1_affine = G1Affine::from(p1);
+    let p2_affine = G1Affine::from(p2);
+    let p1_compressed = G1Compressed::from_affine(p1_affine);
+    let p2_compressed = G1Compressed::from_affine(p2_affine);
+
+    let mut hasher = DefaultHasher::new();
+    let vec = [p1_compressed.as_ref(), p2_compressed.as_ref()].concat();
+    for val in vec {
+        hasher.write_u8(val);
+    }
+
+    hasher.finish()
 }

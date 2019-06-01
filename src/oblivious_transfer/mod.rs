@@ -26,9 +26,9 @@ impl Protocol for ObliviousTransfer {
         let mut cloud = Cloud::new();
 
         let random_masks = client.generate_random_masks();
-        let (blinded_ranom_mask, k) = cloud.choose_random_mask(random_masks);
+        let (blinded_random_mask, k) = cloud.choose_random_mask(random_masks);
 
-        let ciphertexts = client.generate_ciphertexts(blinded_ranom_mask);
+        let ciphertexts = client.generate_ciphertexts(blinded_random_mask);
         let message = cloud.get_message(ciphertexts);
 
         println!("Verification result: {}", client.verify_message(message, k));
