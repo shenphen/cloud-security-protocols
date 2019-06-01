@@ -1,4 +1,4 @@
-# Implementation of cryptographic protocol in Rust
+# Implementation of cryptographic protocols in Rust
 
 ## List of implemented protocols
 
@@ -13,4 +13,4 @@ Run project by `cargo run`.
 
 ## Build release
 
-Build release by `cargo build --release` and than you can run compiled programme by `target/release/cloud-security`.
+Build release by `cargo build --release` and run compiled program by `target/release/cloud-security`.
