@@ -5,11 +5,11 @@ use super::traits::Protocol;
 use evaluator::Evaluator;
 use garbler::Garbler;
 
-pub struct GarbledCircuit {}
+pub struct GarbledCircuits {}
 
-impl Protocol for GarbledCircuit {
+impl Protocol for GarbledCircuits {
     fn new() -> Self {
-        GarbledCircuit {}
+        GarbledCircuits {}
     }
 
     fn protocol(&self) {

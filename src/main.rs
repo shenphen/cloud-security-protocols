@@ -1,14 +1,14 @@
 extern crate array_tool;
 extern crate pairing;
 
-mod garbled_circuit;
+mod garbled_circuits;
 mod oblivious_transfer;
 mod private_set_intersection;
 mod proof_of_possession;
 pub mod traits;
 pub mod utils;
 
-use garbled_circuit::GarbledCircuit;
+use garbled_circuits::GarbledCircuits;
 use oblivious_transfer::ObliviousTransfer;
 use private_set_intersection::PrivateSetIntersection;
 use proof_of_possession::ProofOfPossession;
@@ -31,7 +31,7 @@ fn private_set_intersection() {
 
 #[allow(dead_code)]
 fn garbled_circuit() {
-    GarbledCircuit::new().run();
+    GarbledCircuits::new().run();
 }
 
 fn main() {
