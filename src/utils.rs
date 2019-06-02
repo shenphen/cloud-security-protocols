@@ -1,5 +1,5 @@
-use pairing::bls12_381::{G1Affine, G1Compressed, G1};
-use pairing::EncodedPoint;
+use pairing::bls12_381::{Fr, G1Affine, G1Compressed, G1};
+use pairing::{EncodedPoint, Field};
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hasher;
 use std::time::Instant;
@@ -54,4 +54,25 @@ pub fn hash_points(p1: G1, p2: G1) -> u64 {
     }
 
     hasher.finish()
+}
+
+pub type PolynomialRepr = Vec<(Fr, usize)>;
+
+pub fn eval_poly_at_point(poly: &PolynomialRepr, x: &Fr) -> Fr {
+    let mut result = Fr::zero();
+
+    for i in 0..poly.len() {
+        let mut coefficient = Fr::one();
+        let a_i = poly[i].0;
+        let power = poly[i].1 as u64;
+        coefficient.mul_assign(&a_i);
+        let x_pow = x.pow([power]);
+        if power == 0 {
+            assert_eq!(x_pow, Fr::one());
+        }
+        coefficient.mul_assign(&x_pow);
+        result.add_assign(&coefficient);
+    }
+
+    result
 }
